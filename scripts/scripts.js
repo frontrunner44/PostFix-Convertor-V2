@@ -45,11 +45,12 @@ function postFixConversion(postFixThis) {
         }
     });
     while(opStack.length >= 1 || stack.length === 3) { // Finish popping any left over operators from the operator opStack to the expression.
-        while(operators.includes(stack[stack.length-1])) { // while the top of the operator stack is an operator (meaning it's not an opening parenthesis)
+        if (operators.includes(stack[stack.length - 1])) {
             runCalc();
+        } else {
+            postFixEquation.push(opStack[opStack.length - 1]);
+            stack.push(opStack.pop());
         }
-        postFixEquation.push(opStack[opStack.length-1]);
-        stack.push(opStack.pop());
     }
     console.log(`Finished post-fixed expression:${postFixEquation}`);
     console.log(`Result of calculation: ${stack[0]}`);

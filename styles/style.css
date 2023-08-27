@@ -1,6 +1,6 @@
 body {
   text-align:center;
-  background-color: #403f3f;
+  background-color: rgb(24, 22, 22);
 }
 
 #grid {
@@ -13,37 +13,27 @@ body {
   display: inline-block;
 }
 
-#rules {
-  float:left;  
-  border: 5px solid white;
-  width: 500px;
-  min-height: 398px;
-  margin-right: 20px;
-  background-color: white;
-}
-
 ul {
   text-align: left;
   list-style: none;
+  color:white;
 }
 
 li {
   margin-bottom: 10px;
   border-bottom: 1px solid #e6e5e5;
+  color: white;
 }
 
 #title {
-  color: white;
   margin-bottom: 0px;
+  color: white;
 }
 
-#score {
-  color: white;
-}
 
 p {
-  color: white;
   margin-top: 5px;
+  color:white
 }
 
 button {
@@ -53,8 +43,12 @@ button {
 .cell {
   width: 15px;
   height: 15px;
-  background-color: grey;
   float: left;
   border-style: outset;
   border-width: 2px;
+}
+
+h1 {
+  color:white;
+  font-size:larger;
 }
