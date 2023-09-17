@@ -1,12 +1,12 @@
 // This version calculates the expression as it's being processed into post-fix, avoiding the need to iterate through a second array after conversion.
-const pattern = /(\d+\.\d+|\d+|\+|\-|\*|\^|\/|\(|\))/g;
+const pattern = /(\d+\.\d+|\d+|(?<=\))-|(?<=\D|^)-\d+|\+|\-|\*|\^|\/|\(|\))/g;
 const operators = ["+", "-", "*", "/", "^"];
 
 $("button").click(function(){
     const equation = document.getElementById('equation').value
     let workingEquation = equation.match(pattern);
     if (workingEquation) {
-        workingEquation = Array.from(workingEquation); // Convert NodeList to array
+        workingEquation = Array.from(workingEquation); // Convert to array
         $("#scount").html(postFixConversion(workingEquation));
     } else {
         console.log("No equation or invalid format.");
@@ -17,7 +17,6 @@ function postFixConversion(postFixThis) {
     let stack = [];
     let opStack = [];
     let postFixEquation = [];
-    let step = 1;
     postFixThis.forEach(value => {
         if(operators.includes(value)) { // If the current index is an operator
            while(opEval(value) <= opEval(opStack[opStack.length-1])) { // If the operator at the top of the opStack is equal or higher importance. No need to check if it's empty, because that will return -1.
