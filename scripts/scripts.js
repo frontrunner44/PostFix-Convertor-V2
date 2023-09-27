@@ -7,11 +7,21 @@ $("button").click(function(){
     let workingEquation = equation.match(pattern);
     if (workingEquation) {
         workingEquation = Array.from(workingEquation); // Convert to array
+        workingEquation = exponentFix(workingEquation) // For exponents to help properly claculate -x**y vs (-x)**y by converting x to positive when represented as (-x)**6.
         $("#scount").html(postFixConversion(workingEquation));
     } else {
         console.log("No equation or invalid format.");
     }
 });
+
+function exponentFix(workingEquation) {
+    for(i = 0; i < workingEquation.length; i++) {
+        if(workingEquation[i] === "^" && workingEquation[i-1] === ")" && workingEquation[i-2] < 0) {
+            workingEquation[i-2] /= -1; // Convert to positive
+        }
+    }
+    return workingEquation;
+}
 
 function postFixConversion(postFixThis) {
     let stack = [];
@@ -62,7 +72,7 @@ function postFixConversion(postFixThis) {
         let num1 = parseFloat(stack.pop());
         switch(op) {
             case "^":
-                stack.push(num1**num2);
+                num1 < 0 ? stack.push(-(num1 ** num2)) : stack.push(num1 ** num2);
                 break;
             case "*":
                 stack.push(num1*num2);
